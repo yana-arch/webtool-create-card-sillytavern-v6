@@ -19,6 +19,7 @@ import { Spinner } from './components/Spinner';
 import { UIPreview } from './components/UIPreview';
 import { EnhancementModal } from './components/EnhancementModal';
 import { KnowledgeLibraryModal } from './components/KnowledgeLibraryModal';
+import { GuideModal } from './components/GuideModal';
 
 const App: React.FC = () => {
   const [apiKey, setApiKey] = useState<string>(() => localStorage.getItem('geminiApiKey') || '');
@@ -68,6 +69,7 @@ const App: React.FC = () => {
 
   const [isEnhancementModalOpen, setIsEnhancementModalOpen] = useState<boolean>(false);
   const [isLibraryOpen, setIsLibraryOpen] = useState<boolean>(false);
+  const [isGuideOpen, setIsGuideOpen] = useState<boolean>(false);
 
   const { knowledgeLibrary, addFilesToLibrary, removeFileFromLibrary } = useKnowledgeLibrary();
 
@@ -353,21 +355,24 @@ const App: React.FC = () => {
   };
   
   return (
-    <div className="min-h-screen bg-gray-900 text-gray-100 p-4 sm:p-6 md:p-8">
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-gray-100 p-4 sm:p-6 md:p-8">
       <div className="max-w-7xl mx-auto">
         <header className="flex flex-col sm:flex-row justify-between items-center mb-6">
           <div className="text-center sm:text-left">
-            <h1 className="text-4xl sm:text-5xl font-display font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">
+            <h1 className="text-4xl sm:text-5xl font-display font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-700">
               Trình tạo Thẻ SillyTavern
             </h1>
             <p className="mt-2 text-lg text-gray-400">Tạo thẻ nhân vật nâng cao, giàu tính năng với sức mạnh của AI.</p>
           </div>
-          <Button onClick={() => setIsLibraryOpen(true)} className="mt-4 sm:mt-0 py-2 px-4 text-base">Thư viện Kiến thức</Button>
+          <div className="flex gap-3 mt-4 sm:mt-0">
+            <Button onClick={() => setIsGuideOpen(true)} className="py-2 px-4 text-base">Hướng dẫn</Button>
+            <Button onClick={() => setIsLibraryOpen(true)} className="py-2 px-4 text-base">Thư viện Kiến thức</Button>
+          </div>
         </header>
 
-        <div className="mb-8 p-4 bg-gray-800/50 rounded-xl border border-gray-700">
+        <div className="mb-8 p-4 bg-gray-800/50 rounded-xl border border-gray-700 shadow-2xl">
             <h2 className="text-xl font-bold font-display text-purple-300 mb-3">Cài đặt</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-end">
+            <div className="grid grid-cols-1 md:grid-cols-1 gap-4 items-end">
                 <TextInput
                     isTextArea={true}
                     label="API Key Gemini (cách nhau bởi dấu , hoặc xuống dòng)"
@@ -387,7 +392,7 @@ const App: React.FC = () => {
         </div>
 
         <main className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          <div className="flex flex-col gap-8 p-6 bg-gray-800/50 rounded-xl border border-gray-700">
+          <div className="flex flex-col gap-8 p-6 bg-gray-800/50 rounded-xl border border-gray-700 shadow-2xl">
             <div>
               <h2 className="text-2xl font-bold font-display text-purple-300 mb-4 border-b-2 border-purple-500/30 pb-2">1. Ý tưởng Cốt lõi</h2>
               <div className="space-y-4">
@@ -472,7 +477,7 @@ const App: React.FC = () => {
             </div>
           </div>
 
-          <div className="flex flex-col gap-8">
+          <div className="flex flex-col gap-8 p-6 bg-gray-800/50 rounded-xl border border-gray-700 shadow-2xl">
             <div>
               <h2 className="text-2xl font-bold font-display text-purple-300 mb-4 border-b-2 border-purple-500/30 pb-2">3. Xưởng Thiết kế Giao diện</h2>
               {!features.welcomeScreen && !features.characterCreator && !features.dynamicStatusUI && (
@@ -509,6 +514,7 @@ const App: React.FC = () => {
       </div>
       {isEnhancementModalOpen && cardObject && <EnhancementModal isOpen={isEnhancementModalOpen} onClose={() => setIsEnhancementModalOpen(false)} card={cardObject} onCardUpdate={handleCardUpdate} apiKey={apiKey} knowledgeLibrary={knowledgeLibrary} />}
       <KnowledgeLibraryModal isOpen={isLibraryOpen} onClose={() => setIsLibraryOpen(false)} knowledgeLibrary={knowledgeLibrary} onAddFiles={addFilesToLibrary} onRemoveFile={removeFileFromLibrary} />
+      <GuideModal isOpen={isGuideOpen} onClose={() => setIsGuideOpen(false)} />
     </div>
   );
 };
