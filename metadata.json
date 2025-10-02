@@ -1,0 +1,5 @@
+{
+  "name": "Trình tạo Thẻ SillyTavern v6",
+  "description": "Một công cụ nâng cao để tạo thẻ nhân vật SillyTavern chất lượng cao, giàu tính năng. Nhập ý tưởng ban đầu của bạn, chọn các tính năng mong muốn như giao diện người dùng động và hệ thống tiến trình, và để AI tạo ra một tệp thẻ JSON hoàn chỉnh, sẵn sàng sử dụng.",
+  "requestFramePermissions": []
+}
