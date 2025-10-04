@@ -1,13 +1,18 @@
+import React from "react";
 
-import React from 'react';
-
-interface TextInputProps extends React.InputHTMLAttributes<HTMLInputElement | HTMLTextAreaElement> {
+interface TextInputProps
+  extends React.InputHTMLAttributes<HTMLInputElement | HTMLTextAreaElement> {
   label: string;
   name: string;
   isTextArea?: boolean;
 }
 
-export const TextInput: React.FC<TextInputProps> = ({ label, name, isTextArea = false, ...props }) => {
+export const TextInput: React.FC<TextInputProps> = ({
+  label,
+  name,
+  isTextArea = false,
+  ...props
+}) => {
   const commonClasses = `
     w-full p-3 bg-gray-700/60 border border-gray-600 rounded-lg 
     text-gray-200 placeholder-gray-500 
@@ -17,7 +22,10 @@ export const TextInput: React.FC<TextInputProps> = ({ label, name, isTextArea = 
 
   return (
     <div>
-      <label htmlFor={name} className="block text-sm font-medium text-gray-300 mb-1">
+      <label
+        htmlFor={name}
+        className="block text-sm font-medium text-gray-300 mb-1"
+      >
         {label}
       </label>
       {isTextArea ? (

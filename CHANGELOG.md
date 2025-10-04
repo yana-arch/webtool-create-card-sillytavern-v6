@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.1.0] - 2025-10-02
 
 ### Added
+
 - **Guide Modal**: New interactive guide modal with 6 steps to help new users navigate the application
 - **Help Button**: Added "Hướng dẫn" button in the header to access the guide
 - **UI/UX Improvements**:
@@ -17,16 +18,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Smooth animations in modal transitions
 
 ### Changed
+
 - Updated button gradients from purple-pink to blue-purple for a more modern look
 - Title gradient updated to blue-purple palette
 - Improved overall visual hierarchy with better shadows and backgrounds
 
 ### Fixed
+
 - Enhanced modal animations for smoother user experience
 
 ## [1.0.0] - 2025-09-15
 
 ### Added
+
 - Initial release of SillyTavern Card Generator v6
 - AI-powered card generation using Google Gemini API
 - Dynamic UI Workshop for welcome screens, character creators, and status panels
@@ -36,6 +40,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Enhancement modal for card modifications
 
 ### Features
+
 - Fully responsive design
 - Supports multiple API keys
 - Export to SillyTavern v6 JSON format

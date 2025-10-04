@@ -1,4 +1,4 @@
-export type Template = 'default' | 'cyberpunk' | 'racing' | 'framework';
+export type Template = "default" | "cyberpunk" | "racing" | "framework";
 
 export interface UIPreview {
   name: string;
@@ -36,14 +36,13 @@ export interface CardOptions {
 }
 
 export type Feature =
-  | 'welcomeScreen'
-  | 'characterCreator'
-  | 'dynamicStatusUI'
-  | 'progressionSystem'
-  | 'relationshipSystem'
-  | 'worldMap'
-  | 'lorebook';
-
+  | "welcomeScreen"
+  | "characterCreator"
+  | "dynamicStatusUI"
+  | "progressionSystem"
+  | "relationshipSystem"
+  | "worldMap"
+  | "lorebook";
 
 // Detailed type for the SillyTavern card structure
 interface RegexScript {
@@ -67,7 +66,7 @@ interface TavernHelperScript {
 }
 
 export interface SillyTavernCard {
-  spec: 'chara_card_v3';
+  spec: "chara_card_v3";
   spec_version: string;
   name: string;
   description: string;

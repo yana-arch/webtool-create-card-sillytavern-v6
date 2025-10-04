@@ -1,5 +1,4 @@
-
-import React from 'react';
+import React from "react";
 
 interface CheckboxProps {
   id: string;
@@ -9,9 +8,18 @@ interface CheckboxProps {
   tooltip: string;
 }
 
-export const Checkbox: React.FC<CheckboxProps> = ({ id, label, checked, onChange, tooltip }) => {
+export const Checkbox: React.FC<CheckboxProps> = ({
+  id,
+  label,
+  checked,
+  onChange,
+  tooltip,
+}) => {
   return (
-    <label htmlFor={id} className="group relative flex items-center p-3 bg-gray-700/50 rounded-lg cursor-pointer hover:bg-gray-700 transition-colors">
+    <label
+      htmlFor={id}
+      className="group relative flex items-center p-3 bg-gray-700/50 rounded-lg cursor-pointer hover:bg-gray-700 transition-colors"
+    >
       <input
         id={id}
         type="checkbox"
