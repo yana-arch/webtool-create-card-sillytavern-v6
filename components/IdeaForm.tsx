@@ -26,15 +26,21 @@ export const IdeaForm: React.FC<IdeaFormProps> = ({
     <div>
       <h2 className="text-2xl font-bold font-display text-purple-300 mb-4 border-b-2 border-purple-500/30 pb-2">
         1. Ý tưởng Cốt lõi
-        <svg
-          className="inline-block ml-2 w-5 h-5 cursor-help opacity-70 hover:opacity-100"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-          title="Nhập tên nhân vật, chủ đề, và ý tưởng tin nhắn đầu tiên - nền tảng cho việc tạo thẻ"
-        >
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-        </svg>
+        <span title="Nhập tên nhân vật, chủ đề, và ý tưởng tin nhắn đầu tiên - nền tảng cho việc tạo thẻ">
+          <svg
+            className="inline-block ml-2 w-5 h-5 cursor-help opacity-70 hover:opacity-100"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+            />
+          </svg>
+        </span>
       </h2>
       <div className="space-y-4">
         <TextInput

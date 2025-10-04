@@ -41,15 +41,21 @@ export const FeaturesPanel: React.FC<FeaturesPanelProps> = ({
     <div>
       <h2 className="text-2xl font-bold font-display text-purple-300 mb-4 border-b-2 border-purple-500/30 pb-2">
         2. Tính năng & Nội dung
-        <svg
-          className="inline-block ml-2 w-5 h-5 cursor-help opacity-70 hover:opacity-100"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-          title="Chọn các tính năng và nội dung mà thẻ nhân vật sẽ bao gồm"
-        >
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-        </svg>
+        <span title="Chọn các tính năng và nội dung mà thẻ nhân vật sẽ bao gồm">
+          <svg
+            className="inline-block ml-2 w-5 h-5 cursor-help opacity-70 hover:opacity-100"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+            />
+          </svg>
+        </span>
       </h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <Checkbox

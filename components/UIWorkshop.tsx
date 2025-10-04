@@ -317,15 +317,21 @@ export const UIWorkshop: React.FC<UIWorkshopProps> = ({
     <div>
       <h2 className="text-2xl font-bold font-display text-purple-300 mb-4 border-b-2 border-purple-500/30 pb-2">
         3. Xưởng Thiết kế Giao diện
-        <svg
-          className="inline-block ml-2 w-5 h-5 cursor-help opacity-70 hover:opacity-100"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-          title="Tạo và tùy chỉnh các giao diện HTML/CSS/JS cho các tính năng đã chọn"
-        >
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-        </svg>
+        <span title="Tạo và tùy chỉnh các giao diện HTML/CSS/JS cho các tính năng đã chọn">
+          <svg
+            className="inline-block ml-2 w-5 h-5 cursor-help opacity-70 hover:opacity-100"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+            />
+          </svg>
+        </span>
       </h2>
       {renderWorkshop("welcomeScreen")}
       {renderWorkshop("characterCreator")}
