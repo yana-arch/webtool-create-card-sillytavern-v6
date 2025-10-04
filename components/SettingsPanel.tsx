@@ -20,6 +20,15 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = ({
     <div className="mb-8 p-4 bg-gray-800/50 rounded-xl border border-gray-700 shadow-2xl">
       <h2 className="text-xl font-bold font-display text-purple-300 mb-3">
         Cài đặt
+        <svg
+          className="inline-block ml-2 w-4 h-4 cursor-help opacity-70 hover:opacity-100"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          title="Cấu hình API Key và chế độ nâng cao"
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-1 gap-4 items-end">
         <TextInput

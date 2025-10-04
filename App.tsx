@@ -102,6 +102,7 @@ const App: React.FC = () => {
     useState<boolean>(false);
   const [isLibraryOpen, setIsLibraryOpen] = useState<boolean>(false);
   const [isGuideOpen, setIsGuideOpen] = useState<boolean>(false);
+  const [activeTab, setActiveTab] = useState<"config" | "result">("config");
 
   const { knowledgeLibrary, addFilesToLibrary, removeFileFromLibrary } =
     useKnowledgeLibrary();
@@ -477,6 +478,7 @@ const App: React.FC = () => {
       );
       setCardObject(result as SillyTavernCard);
       setGeneratedJson(JSON.stringify(result, null, 2));
+      setActiveTab("result");
     } catch (e) {
       console.error(e);
       setError(
@@ -548,119 +550,191 @@ const App: React.FC = () => {
           onHyperModeChange={setHyperMode}
         />
 
-        <main className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          <div className="flex flex-col gap-8 p-6 bg-gray-800/50 rounded-xl border border-gray-700 shadow-2xl">
-            <IdeaForm
-              options={options}
-              onOptionChange={handleOptionChange}
-              knowledgeLibrary={knowledgeLibrary}
-            />
-
-            <FeaturesPanel
-              features={features}
-              onFeatureChange={handleFeatureChange}
-              options={options}
-              onOptionChange={handleOptionChange}
-              onAddCustomLoreRequest={handleAddCustomLoreRequest}
-              onCustomLoreRequestChange={handleCustomLoreRequestChange}
-              onRemoveCustomLoreRequest={handleRemoveCustomLoreRequest}
-              importedLorebook={importedLorebook}
-              isAnalyzing={isAnalyzing}
-              onLorebookFileChange={handleLorebookFileChange}
-              onClearImportedLorebook={handleClearImportedLorebook}
-            />
-
-            <div className="mt-auto">
-              <Button
-                onClick={handleGenerate}
-                disabled={isGenerateDisabled}
-                className="w-full"
+        <main className="flex flex-col">
+          <div className="flex border-b border-gray-700 mb-6">
+            <button
+              onClick={() => setActiveTab("config")}
+              className={`flex items-center gap-2 px-6 py-3 text-lg font-medium transition-colors ${
+                activeTab === "config"
+                  ? "border-b-2 border-blue-500 text-blue-400"
+                  : "text-gray-400 hover:text-gray-300"
+              }`}
+              title="Nhập ý tưởng, chọn tính năng và thiết kế giao diện"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-5 w-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
               >
-                {isLoading ? (
-                  <>
-                    <Spinner /> Đang tạo...
-                  </>
-                ) : (
-                  "Tạo Thẻ"
-                )}
-              </Button>
-              {!apiKey && (
-                <p className="text-center text-xs text-yellow-400 mt-2">
-                  Vui lòng nhập API Key trong Cài đặt để bắt đầu.
-                </p>
-              )}
-              {error && (
-                <p className="mt-3 text-sm text-red-400 text-center">{error}</p>
-              )}
-            </div>
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
+                />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+              Cấu hình
+            </button>
+            <button
+              onClick={() => setActiveTab("result")}
+              className={`flex items-center gap-2 px-6 py-3 text-lg font-medium transition-colors ${
+                activeTab === "result"
+                  ? "border-b-2 border-green-500 text-green-400"
+                  : "text-gray-400 hover:text-gray-300"
+              }`}
+              disabled={!generatedJson && !isLoading}
+              title="Xem và tải xuống thẻ JSON đã tạo"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-5 w-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+              Kết quả
+            </button>
           </div>
 
-          <div className="flex flex-col gap-8 p-6 bg-gray-800/50 rounded-xl border border-gray-700 shadow-2xl">
-            <UIWorkshop
-              features={features}
-              welcomeUI={welcomeUI}
-              creatorUI={creatorUI}
-              statusPanelUI={statusPanelUI}
-              theme={options.theme}
-              onGeneratePreviews={handleGeneratePreviews}
-              onSelectPreview={handleSelectPreview}
-              onStartEdit={handleStartEdit}
-              onPerformEdit={handlePerformEdit}
-              onUIOptionChange={handleUIOptionChange}
-              onUIEditRequestChange={handleUIEditRequestChange}
-              apiKey={apiKey}
-            />
+          {activeTab === "config" && (
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              <div className="flex flex-col gap-8 p-6 bg-gray-800/50 rounded-xl border border-gray-700 shadow-2xl">
+                <IdeaForm
+                  options={options}
+                  onOptionChange={handleOptionChange}
+                  knowledgeLibrary={knowledgeLibrary}
+                />
 
-            <div className="flex flex-col flex-grow">
-              <div className="flex justify-between items-center mb-4">
-                <h2 className="text-2xl font-bold font-display text-purple-300 border-b-2 border-purple-500/30 pb-2">
-                  4. Kết quả JSON
-                </h2>
-                {cardObject && (
+                <FeaturesPanel
+                  features={features}
+                  onFeatureChange={handleFeatureChange}
+                  options={options}
+                  onOptionChange={handleOptionChange}
+                  onAddCustomLoreRequest={handleAddCustomLoreRequest}
+                  onCustomLoreRequestChange={handleCustomLoreRequestChange}
+                  onRemoveCustomLoreRequest={handleRemoveCustomLoreRequest}
+                  importedLorebook={importedLorebook}
+                  isAnalyzing={isAnalyzing}
+                  onLorebookFileChange={handleLorebookFileChange}
+                  onClearImportedLorebook={handleClearImportedLorebook}
+                />
+
+                <div className="mt-auto">
                   <Button
-                    onClick={() => setIsEnhancementModalOpen(true)}
-                    className="py-2 text-sm"
+                    onClick={handleGenerate}
+                    disabled={isGenerateDisabled}
+                    className="w-full"
                   >
-                    Bổ sung / Sửa lỗi
+                    {isLoading ? (
+                      <>
+                        <Spinner /> Đang tạo...
+                      </>
+                    ) : (
+                      "Tạo Thẻ"
+                    )}
                   </Button>
-                )}
+                  {!apiKey && (
+                    <p className="text-center text-xs text-yellow-400 mt-2">
+                      Vui lòng nhập API Key trong Cài đặt để bắt đầu.
+                    </p>
+                  )}
+                  {error && (
+                    <p className="mt-3 text-sm text-red-400 text-center">{error}</p>
+                  )}
+                </div>
               </div>
 
-              <div className="flex-grow min-h-[40vh] lg:h-auto">
-                {isLoading ? (
-                  <div className="w-full h-full flex flex-col items-center justify-center bg-gray-800/50 rounded-xl border border-gray-700">
-                    <Spinner />
-                    <p className="mt-4 text-gray-300">
-                      Đang tạo thẻ của bạn...
-                    </p>
-                  </div>
-                ) : generatedJson ? (
-                  <CodeDisplay
-                    jsonString={generatedJson}
-                    fileName={options.name}
-                  />
-                ) : (
-                  <div className="w-full h-full flex flex-col items-center justify-center bg-gray-800/50 rounded-xl border border-gray-700 text-gray-500">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-16 w-16 mb-4"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={1.5}
-                        d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M12 6V3m0 18v-3"
-                      />
-                    </svg>
-                    <p>JSON thẻ được tạo của bạn sẽ xuất hiện ở đây.</p>
-                  </div>
-                )}
+              <div className="flex flex-col gap-8 p-6 bg-gray-800/50 rounded-xl border border-gray-700 shadow-2xl">
+                <UIWorkshop
+                  features={features}
+                  welcomeUI={welcomeUI}
+                  creatorUI={creatorUI}
+                  statusPanelUI={statusPanelUI}
+                  theme={options.theme}
+                  onGeneratePreviews={handleGeneratePreviews}
+                  onSelectPreview={handleSelectPreview}
+                  onStartEdit={handleStartEdit}
+                  onPerformEdit={handlePerformEdit}
+                  onUIOptionChange={handleUIOptionChange}
+                  onUIEditRequestChange={handleUIEditRequestChange}
+                  apiKey={apiKey}
+                />
               </div>
             </div>
-          </div>
+          )}
+
+          {activeTab === "result" && (
+            <div className="flex flex-col gap-8 p-6 bg-gray-800/50 rounded-xl border border-gray-700 shadow-2xl">
+              <div className="flex flex-col flex-grow">
+                <div className="flex justify-between items-center mb-4">
+                  <h2 className="text-2xl font-bold font-display text-green-300 border-b-2 border-green-500/30 pb-2">
+                    Kết quả JSON
+                    <svg
+                      className="inline-block ml-2 w-5 h-5 cursor-help opacity-70 hover:opacity-100"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      title="Xem, tải về và chỉnh sửa thẻ JSON đã tạo"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                  </h2>
+                  {cardObject && (
+                    <Button
+                      onClick={() => setIsEnhancementModalOpen(true)}
+                      className="py-2 text-sm"
+                    >
+                      Bổ sung / Sửa lỗi
+                    </Button>
+                  )}
+                </div>
+
+                <div className="flex-grow min-h-[50vh]">
+                  {isLoading ? (
+                    <div className="w-full h-full flex flex-col items-center justify-center bg-gray-800/50 rounded-xl border border-gray-700">
+                      <Spinner />
+                      <p className="mt-4 text-gray-300">
+                        Đang tạo thẻ của bạn...
+                      </p>
+                    </div>
+                  ) : generatedJson ? (
+                    <CodeDisplay
+                      jsonString={generatedJson}
+                      fileName={options.name}
+                    />
+                  ) : (
+                    <div className="w-full h-full flex flex-col items-center justify-center bg-gray-800/50 rounded-xl border border-gray-700 text-gray-500">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-16 w-16 mb-4"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={1.5}
+                          d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M12 6V3m0 18v-3"
+                        />
+                      </svg>
+                      <p>Vui lòng tạo thẻ từ tab Cấu hình trước.</p>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          )}
         </main>
       </div>
       {isEnhancementModalOpen && cardObject && (
